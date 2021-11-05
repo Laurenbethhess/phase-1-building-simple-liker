@@ -1,11 +1,30 @@
-// Defining text characters for the empty and full hearts for you to use later.
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
+let heartButton = document.getElementsByClassName("like-glyph")
+let heartButtons = [...heartButton]
 
-
-
+heartButtons.map(button => {
+  button.addEventListener('click', () => {
+    mimicServerCall()
+    .then(() => {
+      if (button.innerHTML === EMPTY_HEART) {
+        button.innerHTML = FULL_HEART
+        button.className = 'activated-heart'
+      } else if (button.innerHTML === FULL_HEART) {
+        button.innerHTML = EMPTY_HEART
+        button.className = 'activated-heart'
+      }
+    })
+    .catch(() => {
+      let element = document.getElementById("modal");
+      element.classList.remove("hidden");
+      setTimeout(() => {
+      element.classList.add('hidden')
+      }, 3000)
+    })
+  })
+})
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
